@@ -1,0 +1,106 @@
+<html>
+  <head>
+    <title>Example</title>
+    <style>
+      body {
+        margin: 0;
+      }
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 99%;
+  height: 99%;
+  /* border-width: 1px; */
+  /* border-style: solid;
+  border-color: Black; */
+  z-index: -1; /* let other elements receive events */
+}
+
+canvas {
+  image-rendering: optimizeSpeed;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: -o-crisp-edges;
+  image-rendering: pixelated;
+  -ms-interpolation-mode: nearest-neighbor;
+}
+    </style>
+  </head>
+  
+  <body >
+  <canvas id="responsive-canvas" style="border:1px solid;"></canvas>
+  <script>
+    // 300x150
+
+    function drawLine(direction, location) {
+      let c = document.getElementById("responsive-canvas");
+      let ctx = c.getContext("2d");
+      ctx.fillStyle = "black";
+      direction === 1 
+        ? ctx.fillRect(location, 0, 5, 1_000)
+        : ctx.fillRect(0, location, 1_000, 5);
+
+    }
+  // var canvas = document.getElementById('responsive-canvas');
+  // var heightRatio = 1;
+  // canvas.height = document.documentElement.getBoundingClientRect().height;
+  // console.log(document.height)
+  let c = document.getElementById("responsive-canvas");
+  // let c = ("responsive-canvas");
+  let ctx = c.getContext("2d");
+  // ctx.fillStyle = "black";
+  // ctx.fillRect(10, 0, 5, 1000);
+  // drawLine(1, 10);
+
+
+  // drawLine(0, 10);
+
+  // drawLine(0, 100);
+  // ctx.fillStyle = "red";
+  // ctx.fillRect(10, 0, 10, 1000);
+  
+  // function clearCanvas() {
+  //   c.height = 300;
+  // }
+  c.addEventListener('mousedown', function (event) {
+      console.log('mousedown');
+      let rect = c.getBoundingClientRect();
+      let x = event.clientX - rect.left;
+      let y = event.clientY - rect.top;
+      console.log("Coordinate x: " + x, "Coordinate y: " + y);
+      console.log("This a", (rect.width))
+      console.log(event)
+      if (event.button === 0) {
+        if (event.shiftKey) {
+        drawLine(1, x / (rect.width/c.width))
+        } else {
+          drawLine(0, y / (rect.height/c.height))
+        }
+      } else if (event.button === 1) {
+        
+      }
+
+   });
+
+  // window.addEventListener("resize", handleResize)
+  // function handleResize ()
+  // {
+  //   const ratio = c.width / c.height;
+  //   console.log(ratio)
+  //   let h = window.innerHeight,
+  //       w = h * ratio;
+
+  //   if (w > window.innerWidth) {
+  //     w = window.innerWidth;
+  //     h = w / ratio;
+  //   }
+
+  //   c.style.width = (w-1) + 'px';
+  //   c.style.height = (h-1) + 'px';
+  // };
+
+  // handleResize(); // First draw
+  </script> 
+  </body>
+</html>
